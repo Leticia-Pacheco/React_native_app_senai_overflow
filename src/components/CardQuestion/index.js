@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   CardHeader,
@@ -6,10 +6,10 @@ import {
   HeaderContent,
   TextPoster,
   TextDate,
+  CardBody,
   TextTitle,
   TextDescription,
   ImageQuestion,
-  CardBody,
   CardFooter,
   ContainerInputAnswer,
   InputAnswer,
@@ -18,48 +18,79 @@ import {
 } from "./styles";
 import fotoPerfil from "../../../assets/foto_perfil.png";
 import colors from "../../styles/colors";
+import { FlatList, Touchable, TouchableOpacity } from "react-native";
 
-function CardAnswer () {
-  return(
+function CardAnswer({ answer }) {
+  return (
     <ContainerAnswer>
       <CardHeader>
-        <ImageProfile source={fotoPerfil} />
+        <ImageProfile
+          source={
+            answer.Student.image ? { uri: answer.Student.image } : fotoPerfil
+          }
+        />
         <HeaderContent>
-          <TextPoster>Por Letícia</TextPoster>
-          <TextDate>em 03-03-2021 às 15:00</TextDate>
+          <TextPoster> Por {answer.Student.name} </TextPoster>
+          <TextDate> em {answer.created_at} </TextDate>
         </HeaderContent>
       </CardHeader>
       <CardBody>
-        <TextDescription>
-          Descrição da resposta
-        </TextDescription>
+        <TextDescription> {answer.description} </TextDescription>
       </CardBody>
     </ContainerAnswer>
   );
 }
 
-function CardQuestion() {
+function CardQuestion({ question }) {
+  const [showAnswers, setShowAnswers] = useState(false);
+
   return (
     <Container>
       <CardHeader>
-        <ImageProfile source={fotoPerfil} />
+        <ImageProfile
+          source={
+            question.Student.image
+              ? { uri: question.Student.image }
+              : fotoPerfil
+          }
+        />
         <HeaderContent>
-          <TextPoster>Por Letícia</TextPoster>
-          <TextDate>em 03-03-2021 às 15:00</TextDate>
+          <TextPoster> {question.Student.name} </TextPoster>
+          <TextDate> {question.created_at} </TextDate>
         </HeaderContent>
       </CardHeader>
       <CardBody>
-        <TextTitle>Título da questão</TextTitle>
-        <TextDescription>A descrição da questão fica aqui</TextDescription>
-        <ImageQuestion style={{resizeMode: "contain"}} source={fotoPerfil} />
+        <TextTitle> {question.title} </TextTitle>
+        <TextDescription> {question.description} </TextDescription>
+        {question.image && (
+          <ImageQuestion
+            style={{ resizeMode: "contain" }}
+            source={{ uri: question.image }}
+          />
+        )}
       </CardBody>
       <CardFooter>
-        <TextPoster>Seja o primeiro a responder</TextPoster>
+        <TouchableOpacity onPress={() => setShowAnswers(!showAnswers)}>
+          <TextPoster>
+            {question.Answers.length === 0
+              ? "Seja o primeiro a responder"
+              : question.Answers.length + "respostas"}
+          </TextPoster>
+        </TouchableOpacity>
+        {showAnswers && question.Answers.length > 0 && (
+          <FlatList
+            data={question.Answers}
+            keyExtractor={(answer) => String(answer.id)}
+            renderItem={({ item: answer }) => <CardAnswer answer={answer} />}
+          />
+        )}
 
         <ContainerInputAnswer>
-          <InputAnswer placeholder="Responda a essa pergunta"
-          placeholderTextColor={colors.lightTransparent} />
-          <SendIcon name="paper-plane" color={colors.primary} />
+          <InputAnswer
+            placeholder="Responda essa pergunta"
+            placeholderTextColor={colors.lightTransparent}
+          />
+          <SendIcon name="paper-plane" placeholderTextColor={colors.light} />
         </ContainerInputAnswer>
       </CardFooter>
     </Container>
