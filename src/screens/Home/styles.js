@@ -1,7 +1,8 @@
 import styled from "styled-components/native";
 import colors from "../../styles/colors";
 import { StatusBar } from "react-native";
-import { TextDefault } from "../../styles/stylesGlobal"
+import { TextDefault } from "../../styles/stylesGlobal";
+import { FaSignOutAlt } from "react-icons/fa";
 
 export const Container = styled.View`
     flex: 1;
@@ -28,4 +29,12 @@ export const TextToolBar = styled(TextDefault)`
     color: ${colors.light};
     font-weight: bold;
     text-align: center;
+`;
+
+export const IconSignOut = styled(FaSignOutAlt)`
+    font-size: 5px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
 `;

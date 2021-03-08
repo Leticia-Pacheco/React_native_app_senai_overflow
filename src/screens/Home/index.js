@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar, FlatList } from "react-native";
-import { Container, ToolBar, TextToolBar } from "./styles";
+import { Container, ToolBar, TextToolBar, IconSignOut } from "./styles";
 import colors from "../../styles/colors";
 import CardQuestion from "../../components/cardQuestion";
 import { api } from "../../services/api";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 function Home() {
   StatusBar.setBackgroundColor(colors.light);
@@ -45,6 +46,7 @@ function Home() {
     <Container>
       <ToolBar>
         <TextToolBar> SENAI OVERFLOW </TextToolBar>
+        <IconSignOut />
       </ToolBar>
       <FlatList
         data={questions}

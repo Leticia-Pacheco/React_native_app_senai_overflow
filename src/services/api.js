@@ -6,6 +6,6 @@ const api = axios.create({
 
 api.defaults.headers.common[
   "Authorization"
-] = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50SWQiOjEsInN0dWRlbnROYW1lIjoiTGV0w61jaWEgUGFjaGVjbyIsImlhdCI6MTYxNDk3Mjk1OCwiZXhwIjoxNjE0OTc2NTU4fQ.Nrtt3bP-lWjHvrBECC1DZlxPOBdHe1tsaNM9T7OQ260`;
+] = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50SWQiOjEsInN0dWRlbnROYW1lIjoiTGV0w61jaWEgUGFjaGVjbyIsImlhdCI6MTYxNTIzMjkzNSwiZXhwIjoxNjE1MjM2NTM1fQ.6cTrMpUSw6aDoomFe7TtrStttSQZxtTODIOkcBN4rDk`;
 
 export { api };

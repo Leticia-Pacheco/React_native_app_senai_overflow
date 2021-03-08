@@ -19,6 +19,7 @@ import {
 import fotoPerfil from "../../../assets/foto_perfil.png";
 import colors from "../../styles/colors";
 import { FlatList, Touchable, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 function CardAnswer({ answer }) {
   return (
