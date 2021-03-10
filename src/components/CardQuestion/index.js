@@ -75,7 +75,7 @@ function CardQuestion({ question }) {
           <TextPoster>
             {question.Answers.length === 0
               ? "Seja o primeiro a responder"
-              : question.Answers.length + "respostas"}
+              : question.Answers.length + " respostas"}
           </TextPoster>
         </TouchableOpacity>
         {showAnswers && question.Answers.length > 0 && (

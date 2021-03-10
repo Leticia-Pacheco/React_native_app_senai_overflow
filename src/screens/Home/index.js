@@ -4,11 +4,13 @@ import { Container, ToolBar, TextToolBar, IconSignOut } from "./styles";
 import colors from "../../styles/colors";
 import CardQuestion from "../../components/cardQuestion";
 import { api } from "../../services/api";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import Login from "../Login";
+import { signOut } from "../../services/security";
 
-function Home() {
+function Home({ navigation }) {
   StatusBar.setBackgroundColor(colors.light);
-  
+
   const [isLoadingFeed, setIsLoadingFeed] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [totalQuestions, setTotalQuestions] = useState(0);
@@ -39,22 +41,34 @@ function Home() {
   };
 
   useEffect(() => {
-      loadQuestions();
-  },[]);
+    loadQuestions();
+  }, []);
+
+  const handleSignOut= () => {
+    signOut();
+    navigation.navigate("Login")
+  }
 
   return (
     <Container>
       <ToolBar>
         <TextToolBar> SENAI OVERFLOW </TextToolBar>
-        <IconSignOut />
+        <TouchableOpacity
+          onPress={handleSignOut}
+          // style={{ position: "absolute", right: 4 }}
+        >
+          <IconSignOut name="sign-out" />
+        </TouchableOpacity>
       </ToolBar>
       <FlatList
         data={questions}
-        style={{width: "100%"}}
+        style={{ width: "100%" }}
         onEndReached={() => loadQuestions()}
         onEndReachedThreshold={0.2}
         keyExtractor={(question) => String(question.id)}
-        renderItem={({item: question}) => <CardQuestion question={question} />}
+        renderItem={({ item: question }) => (
+          <CardQuestion question={question} />
+        )}
       />
     </Container>
   );
